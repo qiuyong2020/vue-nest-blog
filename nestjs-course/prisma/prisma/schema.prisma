@@ -1,0 +1,44 @@
+// 数据库的版本管理仓库
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// 用户数据表
+model user {
+  id        BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  age       Int
+  email     String
+  password  String
+  avatar    String?
+  github    String?
+  gitee     String?
+  juejin    String?
+  waketime  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// 目录
+model category {
+  id       BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  title    String
+  articles article[] //关联article表（一对多）
+}
+
+// 博客文章
+model article {
+  id         BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  title      String
+  content    String   @db.Text
+  thumb      String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  category   category @relation(fields: [categoryId], references: [id], onDelete: Cascade) //article表的categoryId字段与category表的id字段进行关联
+  categoryId BigInt   @db.UnsignedBigInt
+}

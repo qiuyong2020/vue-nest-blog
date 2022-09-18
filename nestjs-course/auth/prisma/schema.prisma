@@ -1,0 +1,18 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// prisma连接MySQL数据库
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// 用户数据表
+model user {
+  id       Int    @id @default(autoincrement()) @db.UnsignedInt
+  name     String
+  password String
+}
