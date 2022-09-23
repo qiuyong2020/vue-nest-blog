@@ -17,6 +17,7 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
+    "esModuleInterop": true,
     // 设置路径别名，方便文件导入
     "paths": {
       "@/*": ["src/*"]

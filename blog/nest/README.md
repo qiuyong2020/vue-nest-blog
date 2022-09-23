@@ -26,10 +26,10 @@ $ pnpm add prisma-binding @prisma/client mockjs @nestjs/config class-validator c
 $ pnpm add -D prisma typescript @types/node @types/mockjs @nestjs/mapped-types @types/passport-local @types/passport-jwt @types/express @types/lodash @types/multer @types/node
 ```
 
-## Connect the database
+## Connect your database
 
 ```bash
-# Use the prisma tool to manipulate MySQL database, and generate prisma/schema.prisma file and src/.env file.
+# Use the prisma package to manipulate MySQL database, and generate prisma/schema.prisma file and src/.env file.
 $ pnpm prisma init
 
 # In package.json, add an order under the “prisma” member, it will automate the prisma/seed.ts file when prisma is working.
@@ -37,10 +37,10 @@ $ pnpm prisma init
 # Modify the login information for your database in the .env file.
 # DATABASE_URL="mysql://Username:password@host:port/Connection_name"
 
-# Open the database service, create table in schema.prisma file, then you can connect to your database through the prisma.
+# Open the database service, create tables in schema.prisma file, then you can connect to your database through the prisma.
 $ pnpm prisma migrate dev
 
-# Writing seed.ts file, then execute data filling again.
+# Writing SQL in seed.ts file, then execute data filling again.
 $ pnpm prisma migrate reset
 ```
 
@@ -54,26 +54,26 @@ $ npm install
 
 ```bash
 # development
-$ npm run start
+$ pnpm run start
 
 # watch mode
-$ npm run dev
+$ ppnpm dev
 
 # production mode
-$ npm run start:prod
+$ pnpm run start:prod
 ```
 
 ## Test
 
 ```bash
 # unit tests
-$ npm run test
+$ pnpm run test
 
 # e2e tests
-$ npm run test:e2e
+$ pnpm run test:e2e
 
 # test coverage
-$ npm run test:cov
+$ pnpm run test:cov
 ```
 
 ## License

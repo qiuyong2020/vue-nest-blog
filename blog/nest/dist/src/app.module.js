@@ -8,16 +8,27 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
-const auth_service_1 = require("./auth/auth.service");
-const auth_module_1 = require("./auth/auth.module");
-const prisma_service_1 = require("./prisma/prisma.service");
-const prisma_module_1 = require("./prisma/prisma.module");
+const config_1 = require("@nestjs/config");
 const jwt_1 = require("@nestjs/jwt");
+const article_module_1 = require("./article/article.module");
+const auth_module_1 = require("./auth/auth.module");
+const auth_service_1 = require("./auth/auth.service");
+const category_module_1 = require("./category/category.module");
+const prisma_module_1 = require("./prisma/prisma.module");
+const prisma_service_1 = require("./prisma/prisma.service");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [auth_module_1.AuthModule, prisma_module_1.PrismaModule],
+        imports: [
+            auth_module_1.AuthModule,
+            prisma_module_1.PrismaModule,
+            article_module_1.ArticleModule,
+            category_module_1.CategoryModule,
+            config_1.ConfigModule.forRoot({
+                isGlobal: true,
+            }),
+        ],
         providers: [auth_service_1.AuthService, prisma_service_1.PrismaService, jwt_1.JwtService],
     })
 ], AppModule);

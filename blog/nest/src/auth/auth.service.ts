@@ -23,7 +23,7 @@ export class AuthService {
     return this.token(user)
   }
 
-  //Generate a signature that encrypted the user's id and name by jwt.
+  //Generate a signature that encrypted the user's id and name by JWT.
   private async token({ id, name }: user) {
     return {
       token: await this.jwt.signAsync({
@@ -42,7 +42,7 @@ export class AuthService {
       },
     })
 
-    //After confirming that the user exists, verify the password with hash in database.
+    //After confirming that the user exists, verify the password(hash) in database.
     if (!(await verify(user.password, body.password))) {
       throw new BadRequestException('Your password is wrong, please enter again!')
     }

@@ -12,14 +12,24 @@ datasource db {
 
 // 用户
 model user {
-  id       Int    @id @default(autoincrement()) @db.UnsignedInt
-  name     String @unique
+  id       Int     @id @default(autoincrement()) @db.UnsignedInt
+  name     String  @unique
   password String
+  role     String?
+}
+
+// 文章栏目
+model category {
+  id       Int       @id @default(autoincrement()) @db.UnsignedInt
+  title    String    @db.VarChar(30)
+  articles article[] //关联 article 表
 }
 
 // 博客文章
 model article {
-  id      Int    @id @default(autoincrement()) @db.UnsignedInt
-  title   String
-  content String @db.Text
+  id         Int      @id @default(autoincrement()) @db.UnsignedInt
+  title      String
+  content    String   @db.Text
+  category   category @relation(fields: [categoryId], references: [id], onDelete: Cascade) //文章的删除操作被同步到 category 表
+  categoryId Int      @db.UnsignedInt
 }

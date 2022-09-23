@@ -12,9 +12,7 @@ const operators_1 = require("rxjs/operators");
 let TransformInterceptor = class TransformInterceptor {
     intercept(context, next) {
         return next.handle().pipe((0, operators_1.map)((data) => {
-            return {
-                data,
-            };
+            return (data === null || data === void 0 ? void 0 : data.meta) ? data : { data };
         }));
     }
 };

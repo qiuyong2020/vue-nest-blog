@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
 import { JwtModule } from '@nestjs/jwt'
 import { AuthController } from './auth.controller'
 import { AuthService } from './auth.service'
+import { JwtStrategy } from './strategy/jwt.strategy'
 
 @Global()
 @Module({
@@ -17,9 +18,9 @@ import { AuthService } from './auth.service'
           signOptions: { expiresIn: '10d' }, //Set the expiration time of the token.
         }
       },
-    }),
-  ], //Use the JWT encryption service that relies on the config module.
+    }), //Use the JWT encryption service that relies on the config module.
+  ],
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService, JwtStrategy],
 })
 export class AuthModule {}

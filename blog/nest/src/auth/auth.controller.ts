@@ -7,7 +7,7 @@ import RegisterDto from './dto/register.dto'
 export class AuthController {
   constructor(private auth: AuthService) {}
 
-  // Request interface for new user's registration. (The blog website supports only single users right now)
+  // Request interface for new user's registration. (This blog website supports only single users right now)
   @Post('register')
   register(@Body() body: RegisterDto) {
     return this.auth.register(body)
