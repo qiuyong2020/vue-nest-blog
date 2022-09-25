@@ -1,7 +1,7 @@
 ## Description
 
-This blog system is a **client-side** and **server-side** separation project.
-Using `nest.js`, a progressive framework of `Node.js`, to develop the server-side of this project. It can help primary front-end developers write business logic throughout the process using `Javascript` alone.
+- This blog system is a **client-side** and **server-side** separation project.
+- Using `nest.js`, a progressive framework of `Node.js`, to develop the server-side of this project. It can help primary front-end developers write business logic throughout the process using `Javascript` alone.
 
 ## VSCode plugin
 
