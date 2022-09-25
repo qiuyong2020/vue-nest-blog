@@ -1,5 +1,6 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common'
-import { AuthGuard } from '@nestjs/passport'
+import { Auth } from '@/auth/decorators/auth.decorator'
+import { Role } from '@/auth/role.enum'
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common'
 import { CategoryService } from './category.service'
 import { CreateCategoryDto } from './dto/create-category.dto'
 import { UpdateCategoryDto } from './dto/update-category.dto'
@@ -9,7 +10,8 @@ export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
   @Post()
-  @UseGuards(AuthGuard('jwt')) //设置守卫，使用 jwt 策略进行身份验证
+  // @UseGuards(AuthGuard('jwt')) //设置守卫，使用 jwt 策略进行身份验证
+  @Auth(Role.ADMIN, Role.EDITER) //使用装饰器聚合的角色守卫，指定身份验证通过后、允许哪些角色的用户
   create(@Body() createCategoryDto: CreateCategoryDto) {
     return this.categoryService.create(createCategoryDto)
   }

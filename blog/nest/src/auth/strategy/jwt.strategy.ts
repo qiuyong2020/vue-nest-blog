@@ -1,5 +1,5 @@
 /**
- *  JWT身份验证
+ *  使用 jwt 策略进行身份验证
  */
 import { ConfigService } from '@nestjs/config'
 import { ExtractJwt, Strategy } from 'passport-jwt'
@@ -18,7 +18,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     })
   }
 
-  //验证通过后获取用户资料
+  //验证通过后，根据解析token后的ID获取用户资料
   async validate({ sub: id }) {
     return this.prisma.user.findUnique({
       where: { id },

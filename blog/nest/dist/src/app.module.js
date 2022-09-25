@@ -16,6 +16,7 @@ const auth_service_1 = require("./auth/auth.service");
 const category_module_1 = require("./category/category.module");
 const prisma_module_1 = require("./prisma/prisma.module");
 const prisma_service_1 = require("./prisma/prisma.service");
+const upload_module_1 = require("./upload/upload.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -28,6 +29,7 @@ AppModule = __decorate([
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
             }),
+            upload_module_1.UploadModule,
         ],
         providers: [auth_service_1.AuthService, prisma_service_1.PrismaService, jwt_1.JwtService],
     })

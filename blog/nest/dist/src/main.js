@@ -12,6 +12,7 @@ async function bootstrap() {
     app.useGlobalPipes(new validate_1.default());
     app.useGlobalInterceptors(new transform_interceptor_1.TransformInterceptor());
     app.setGlobalPrefix('api');
+    app.useStaticAssets('uploads', { prefix: '/uploads' });
     await app.listen(3000);
 }
 bootstrap();

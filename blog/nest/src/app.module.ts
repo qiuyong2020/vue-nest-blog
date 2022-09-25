@@ -7,6 +7,7 @@ import { AuthService } from './auth/auth.service'
 import { CategoryModule } from './category/category.module'
 import { PrismaModule } from './prisma/prisma.module'
 import { PrismaService } from './prisma/prisma.service'
+import { UploadModule } from './upload/upload.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { PrismaService } from './prisma/prisma.service'
     ConfigModule.forRoot({
       isGlobal: true, //注册为全局模块
     }),
+    UploadModule,
   ],
   providers: [AuthService, PrismaService, JwtService],
 })

@@ -16,6 +16,9 @@ async function bootstrap() {
   //客户端与服务端在同一域名下访问，为服务端接口设置api请求前缀，进行前后端分离
   app.setGlobalPrefix('api')
 
+  //设置静态资源的根目录及对应的路径前缀（如http://localhost:3000/uploads/xxx.jpeg）
+  app.useStaticAssets('uploads', { prefix: '/uploads' })
+
   await app.listen(3000)
 }
 bootstrap()
