@@ -9,13 +9,17 @@ export class UploadController {
   @Post('image')
   @ImageUpload() //自定义图片上传的拦截器
   image(@UploadedFile() file: Express.Multer.File) {
-    return file
+    return {
+      url: `http://localhost:3000/${file.path}`,
+    } //返回图片的静态资源路径
   }
 
   // 文档上传的请求接口
   @Post('document')
   @DocumentUpload() //自定义文档上传的拦截器
   document(@UploadedFile() file: Express.Multer.File) {
-    return file
+    return {
+      url: `http://localhost:3000/${file.path}`,
+    }
   }
 }

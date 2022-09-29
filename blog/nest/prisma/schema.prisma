@@ -32,4 +32,6 @@ model article {
   content    String   @db.Text
   category   category @relation(fields: [categoryId], references: [id], onDelete: Cascade) //文章的删除操作被同步到 category 表
   categoryId Int      @db.UnsignedInt
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }

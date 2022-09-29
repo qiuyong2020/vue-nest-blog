@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const common_1 = require("@nestjs/common");
 const core_1 = require("@nestjs/core");
 const app_module_1 = require("./app.module");
 const validate_1 = __importDefault(require("./common/validate"));
@@ -13,6 +14,7 @@ async function bootstrap() {
     app.useGlobalInterceptors(new transform_interceptor_1.TransformInterceptor());
     app.setGlobalPrefix('api');
     app.useStaticAssets('uploads', { prefix: '/uploads' });
+    app.useGlobalInterceptors(new common_1.ClassSerializerInterceptor(app.get(core_1.Reflector)));
     await app.listen(3000);
 }
 bootstrap();

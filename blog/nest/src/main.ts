@@ -1,4 +1,5 @@
-import { NestFactory } from '@nestjs/core'
+import { ClassSerializerInterceptor } from '@nestjs/common'
+import { NestFactory, Reflector } from '@nestjs/core'
 import { NestExpressApplication } from '@nestjs/platform-express'
 import { AppModule } from './app.module'
 import Validate from './common/validate' //管道验证
@@ -18,6 +19,9 @@ async function bootstrap() {
 
   //设置静态资源的根目录及对应的路径前缀（如http://localhost:3000/uploads/xxx.jpeg）
   app.useStaticAssets('uploads', { prefix: '/uploads' })
+
+  //序列化响应
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)))
 
   await app.listen(3000)
 }

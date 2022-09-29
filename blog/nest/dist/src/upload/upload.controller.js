@@ -18,10 +18,14 @@ const common_1 = require("@nestjs/common");
 const upload_decorator_1 = require("./decorator/upload.decorator");
 let UploadController = class UploadController {
     image(file) {
-        return file;
+        return {
+            url: `http://localhost:3000/${file.path}`,
+        };
     }
     document(file) {
-        return file;
+        return {
+            url: `http://localhost:3000/${file.path}`,
+        };
     }
 };
 __decorate([

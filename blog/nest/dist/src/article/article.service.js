@@ -27,18 +27,29 @@ let ArticleService = class ArticleService {
             },
         });
     }
-    async findAll(page = 1) {
+    async findAll(args) {
         const row = this.config.get('ARTICLE_PAGE_ROW');
+        const page = args.page ? +args.page : 1;
         const articles = await this.prisma.article.findMany({
+            include: {
+                category: true,
+            },
+            where: {
+                category: args.category ? { id: +args.category } : {},
+            },
             skip: (page - 1) * row,
             take: +row,
         });
         console.log(`当前页有${articles.length}篇文章`);
-        const total = await this.prisma.article.count();
+        const total = await this.prisma.article.count({
+            where: {
+                category: args.category ? { id: +args.category } : {},
+            },
+        });
         return {
             meta: {
-                current_path: page,
-                page_row: row,
+                current_page: page,
+                page_row: +row,
                 total,
                 total_page: Math.ceil(total / row),
             },
@@ -50,10 +61,14 @@ let ArticleService = class ArticleService {
             where: { id },
         });
     }
-    update(id, updateArticleDto) {
-        return this.prisma.article.update({
+    async update(id, updateArticleDto) {
+        return await this.prisma.article.update({
             where: { id },
-            data: Object.assign(Object.assign({}, updateArticleDto), { categoryId: +updateArticleDto.categoryId }),
+            data: {
+                title: updateArticleDto.title,
+                content: updateArticleDto.content,
+                categoryId: +updateArticleDto.categoryId,
+            },
         });
     }
     remove(id) {

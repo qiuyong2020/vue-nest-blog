@@ -16,14 +16,14 @@ async function run() {
             role: 'admin',
         },
     });
-    for (let i = 0; i <= 5; i++) {
+    for (let i = 0; i < 5; i++) {
         await prisma.category.create({
             data: {
                 title: mockjs_1.Random.ctitle(3, 6),
             },
         });
     }
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 50; i++) {
         await prisma.article.create({
             data: {
                 title: mockjs_1.Random.ctitle(10, 30),

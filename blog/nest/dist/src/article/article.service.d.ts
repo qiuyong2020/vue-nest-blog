@@ -7,16 +7,18 @@ export declare class ArticleService {
     private config;
     constructor(prisma: PrismaService, config: ConfigService);
     create(createArticleDto: CreateArticleDto): import("@prisma/client").Prisma.Prisma__articleClient<import("@prisma/client").article>;
-    findAll(page?: number): Promise<{
+    findAll(args: Record<string, any>): Promise<{
         meta: {
-            current_path: number;
-            page_row: any;
+            current_page: number;
+            page_row: number;
             total: number;
             total_page: number;
         };
-        data: import("@prisma/client").article[];
+        data: (import("@prisma/client").article & {
+            category: import("@prisma/client").category;
+        })[];
     }>;
     findOne(id: number): import("@prisma/client").Prisma.Prisma__articleClient<import("@prisma/client").article>;
-    update(id: number, updateArticleDto: UpdateArticleDto): import("@prisma/client").Prisma.Prisma__articleClient<import("@prisma/client").article>;
+    update(id: number, updateArticleDto: UpdateArticleDto): Promise<import("@prisma/client").article>;
     remove(id: number): import("@prisma/client").Prisma.Prisma__articleClient<import("@prisma/client").article>;
 }

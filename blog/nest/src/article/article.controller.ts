@@ -1,10 +1,24 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common'
+import {
+  Body,
+  ClassSerializerInterceptor,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+  SerializeOptions,
+  UseInterceptors,
+} from '@nestjs/common'
 import { ArticleService } from './article.service'
 import { CreateArticleDto } from './dto/create-article.dto'
 import { UpdateArticleDto } from './dto/update-article.dto'
+import { Article } from './entities/article.entities'
 
 //博客文章的 增/删/改/查 接口
 @Controller('article')
+// @UseInterceptors(ClassSerializerInterceptor) //响应序列化
 export class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
 
@@ -13,14 +27,16 @@ export class ArticleController {
     return this.articleService.create(createArticleDto)
   }
 
-  @Get() //查询所有文章
-  findAll() {
-    return this.articleService.findAll()
+  @Get() //查询所有文章（接收前端传来的query参数，分页页码和栏目ID）
+  // @SerializeOptions({ strategy: 'excludeAll' }) //所有响应字段都不返回
+  async findAll(@Query() args = {}) {
+    return await this.articleService.findAll(args)
   }
 
   @Get(':id') //查询单条文章
-  findOne(@Param('id') id: string) {
-    return this.articleService.findOne(+id)
+  async findOne(@Param('id') id: string) {
+    const response = await this.articleService.findOne(+id)
+    return new Article(response)
   }
 
   @Patch(':id') //修改单条文章

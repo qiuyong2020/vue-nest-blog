@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const article_service_1 = require("./article.service");
 const create_article_dto_1 = require("./dto/create-article.dto");
 const update_article_dto_1 = require("./dto/update-article.dto");
+const article_entities_1 = require("./entities/article.entities");
 let ArticleController = class ArticleController {
     constructor(articleService) {
         this.articleService = articleService;
@@ -24,11 +25,12 @@ let ArticleController = class ArticleController {
     create(createArticleDto) {
         return this.articleService.create(createArticleDto);
     }
-    findAll() {
-        return this.articleService.findAll();
+    async findAll(args = {}) {
+        return await this.articleService.findAll(args);
     }
-    findOne(id) {
-        return this.articleService.findOne(+id);
+    async findOne(id) {
+        const response = await this.articleService.findOne(+id);
+        return new article_entities_1.Article(response);
     }
     update(id, updateArticleDto) {
         return this.articleService.update(+id, updateArticleDto);
@@ -46,16 +48,17 @@ __decorate([
 ], ArticleController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
 ], ArticleController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], ArticleController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Patch)(':id'),
