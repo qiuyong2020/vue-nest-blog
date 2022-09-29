@@ -24,7 +24,8 @@
   }
 }
 
-//界面背景色
 body {
-  @apply bg-slate-800
+  // margin: 0;
+  // padding: 0;
+  @apply md:bg-slate-800 bg-gray-50;
 }

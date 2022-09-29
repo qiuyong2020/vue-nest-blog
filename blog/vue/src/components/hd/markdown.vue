@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import VueMarkdownEditor from '@kangc/v-md-editor'
-import useUpload from '@/composables/useUpload'
-const { uploadImage } = useUpload()
+import { uploadImage } from '@/apis/upload'
 const { modelValue } = defineProps<{
   modelValue: any
 }>()
@@ -26,7 +23,7 @@ const handleUploadImage = async (event: any, insertImage: any, files: any) => {
 </script>
 
 <template>
-  <VueMarkdownEditor
+  <v-md-editor
     :value="modelValue"
     v-model="text"
     :disabled-menus="[]"

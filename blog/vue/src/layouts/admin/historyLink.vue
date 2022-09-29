@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import useMenu from './useMenu'
-
 const { history } = useMenu()
 </script>
 

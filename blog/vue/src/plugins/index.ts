@@ -1,15 +1,12 @@
 import { App } from 'vue'
-import animate from './animate'
-import axios from './axios'
-import dayjs from './dayjs'
-import elementui from './elementui'
-import iconpark from './iconpark'
-import markdown from './markdown'
-import tailwindcss from './tailwindcss'
-import validate from './validate'
+import _ from 'lodash'
 
-const modules = [animate, axios, dayjs, elementui, iconpark, markdown, tailwindcss, validate]
+export default (app: App) => {
+  register(app, import.meta.globEager('./**/index.ts'))
+}
 
-export default function register(app: App) {
-  modules.map((module) => module(app))
+function register(app: App, modules: Record<string, any>) {
+  Object.entries(modules).map(([, module]) => {
+    module.default(app)
+  })
 }

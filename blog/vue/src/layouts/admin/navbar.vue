@@ -1,20 +1,16 @@
 <script setup lang="ts">
-import useUtil from '@/composables/system/useUtil'
 import userStore from '@/store/userStore'
-import { MenuFoldOne, MenuUnfoldOne } from '@icon-park/vue-next'
-import useMenu from './useMenu'
-
-const { logout, open } = useUtil()
+import { logout, open } from '@/utils/helper'
 const { show } = useMenu()
-const { user } = userStore()
+const user = userStore()
 </script>
 
 <template>
   <div class="bg-white relative shadow-sm z-50 p-2 border-b-1 px-5 flex justify-between items-center">
     <div class="flex items-center">
       <div class="mr-2" @click.stop="show = !show">
-        <MenuUnfoldOne theme="filled" size="24" fill="#10ad57" class="cursor-pointer duration-300" v-if="show" />
-        <MenuFoldOne theme="filled" size="24" fill="#10ad57" class="cursor-pointer duration-300" v-else />
+        <icon-menu-unfold-one theme="filled" size="24" fill="#10ad57" class="cursor-pointer duration-300" v-if="show" />
+        <icon-menu-fold-one theme="filled" size="24" fill="#10ad57" class="cursor-pointer duration-300" v-else />
       </div>
       <HdBreadcrumb class="hidden md:block" />
     </div>
@@ -22,8 +18,12 @@ const { user } = userStore()
       <HdFullscreen class="hidden md:flex mr-3 text-gray-600" />
       <el-dropdown>
         <span class="el-dropdown-link flex items-center">
-          <ElImage v-if="user?.avatar" :src="user?.avatar" fit="cover" class="w-8 h-8 rounded-full border-white" />
-          <span class="ml-1 text-sm">{{ user?.nickname }}</span>
+          <ElImage
+            v-if="user.info?.avatar"
+            :src="user.info?.avatar"
+            fit="cover"
+            class="w-8 h-8 rounded-full border-white" />
+          <span class="ml-1 text-sm">{{ user.info?.nickname }}</span>
         </span>
         <template #dropdown>
           <el-dropdown-menu>

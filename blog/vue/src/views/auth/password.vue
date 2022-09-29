@@ -1,9 +1,6 @@
 <script setup lang="ts">
-import useAuth from '@/composables/useAuth'
-import { Wechat } from '@icon-park/vue-next'
-import { reactive } from 'vue'
+import { forgetPassword } from '@/apis/auth'
 import Footer from './components/footer.vue'
-const { forgetPassword } = useAuth()
 
 const form = reactive({
   mobile: '199999999999',
@@ -13,7 +10,9 @@ const form = reactive({
 })
 
 const onSubmit = async () => {
-  await forgetPassword(form)
+  try {
+    await forgetPassword(form)
+  } catch (error) {}
 }
 </script>
 
@@ -43,7 +42,7 @@ const onSubmit = async () => {
           <FormButtonComponent class="w-full primary mt-2">确定修改</FormButtonComponent>
 
           <div class="flex justify-center mt-3">
-            <Wechat
+            <icon-wechat
               theme="outline"
               size="24"
               fill="#fff"

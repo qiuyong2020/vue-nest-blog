@@ -1,12 +1,12 @@
-import { HttpStatus } from '@/enum/HttpStatus'
-import { RouteName } from '@/enum/RouteName'
-import router from '@/router'
+import { CacheEnum } from '@/enum/CacheEnum'
+import { HttpEnum } from '@/enum/httpEnum'
+import { RouteEnum } from '@/enum/RouteEnum'
+import router from '@/router/register'
 import errorStore from '@/store/errorStore'
+import store from '@/utils/store'
 import axios, { AxiosRequestConfig } from 'axios'
 import { ElLoading, ElMessage } from 'element-plus'
-import { CacheKey } from '@/enum/CacheKey'
-import useStorage from '@/composables/system/useStorage'
-const storage = useStorage()
+
 export default class Axios {
   private instance
   private loading: any
@@ -15,7 +15,7 @@ export default class Axios {
     this.interceptors()
   }
 
-  public async request<T, D = ApiData<T>>(config: AxiosRequestConfig) {
+  public async request<T, D = ResponseResult<T>>(config: AxiosRequestConfig) {
     return new Promise(async (resolve, reject) => {
       try {
         const response = await this.instance.request<D>(config)
@@ -42,7 +42,7 @@ export default class Axios {
         errorStore().resetError()
         config.headers = {
           Accept: 'application/json',
-          Authorization: `Bearer ${storage.get(CacheKey.TOKEN_NAME)}`,
+          Authorization: `Bearer ${store.get(CacheEnum.TOKEN_NAME)}`,
         }
         return config
       },
@@ -73,20 +73,20 @@ export default class Axios {
         const { message } = data
 
         switch (status) {
-          case HttpStatus.UNAUTHORIZED:
-            storage.remove(CacheKey.TOKEN_NAME)
-            router.push({ name: RouteName.LOGIN })
+          case HttpEnum.UNAUTHORIZED:
+            store.remove(CacheEnum.TOKEN_NAME)
+            router.push({ name: RouteEnum.LOGIN })
             break
-          case HttpStatus.UNPROCESSABLE_ENTITY:
+          case HttpEnum.BAD_REQUEST:
             errorStore().setErrors(error.response.data.errors)
             break
-          case HttpStatus.FORBIDDEN:
+          case HttpEnum.FORBIDDEN:
             ElMessage({ type: 'error', message: message ?? '没有操作权限' })
             break
-          case HttpStatus.NOT_FOUND:
-            router.push({ name: RouteName.NOT_FOUND })
+          case HttpEnum.NOT_FOUND:
+            router.push({ name: RouteEnum.NOT_FOUND })
             break
-          case HttpStatus.TOO_MANY_REQUESTS:
+          case HttpEnum.TOO_MANY_REQUESTS:
             ElMessage({ type: 'error', message: message ?? '请示过于频繁，请稍候再试' })
             break
           default:

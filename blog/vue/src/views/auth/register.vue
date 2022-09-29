@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import useAuth from '@/composables/useAuth'
+import { register } from '@/apis/auth'
 import errorStore from '@/store/errorStore'
-import { Wechat } from '@icon-park/vue-next'
-import { reactive, watch } from 'vue'
+import { loginCallback } from '@/utils/helper'
 import Footer from './components/footer.vue'
-const { register } = useAuth()
 
 const form = reactive({
   mobile: '199999999999',
@@ -18,7 +16,10 @@ const store = errorStore()
 watch(form, () => store.resetError())
 
 const onSubmit = async () => {
-  await register(form)
+  try {
+    const { data } = await register(form)
+    loginCallback(data.token)
+  } catch (error) {}
 }
 </script>
 
@@ -46,7 +47,7 @@ const onSubmit = async () => {
           <FormButtonComponent class="w-full primary mt-2">注册</FormButtonComponent>
 
           <div class="flex justify-center mt-3">
-            <Wechat
+            <icon-wechat
               theme="outline"
               size="24"
               fill="#fff"

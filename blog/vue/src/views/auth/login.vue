@@ -1,15 +1,14 @@
 <script setup lang="ts">
-import useUtil from '@/composables/system/useUtil'
-import useAuth from '@/composables/useAuth'
-import { Wechat } from '@icon-park/vue-next'
-import { reactive } from 'vue'
+import { login } from '@/apis/auth'
+import { loginCallback, request } from '@/utils/helper'
 import Footer from './components/footer.vue'
-const { login } = useAuth()
-const { request } = useUtil()
-const form = reactive({ mobile: '19999999999', password: 'admin888' })
+
+const form = reactive({ name: 'admin', password: 'admin123' })
 
 const onSubmit = request(async () => {
-  await login(form)
+  const { data } = await login(form)
+  //前端拿到后端返回的token
+  loginCallback(data.token)
 })
 </script>
 
@@ -21,8 +20,8 @@ const onSubmit = request(async () => {
         <div>
           <h2 class="text-center text-gray-700 text-lg mt-3">用户登录</h2>
           <div class="mt-8">
-            <FormInputComponent v-model="form.mobile" placeholder="请输入手机号" />
-            <HdError name="mobile" />
+            <FormInputComponent v-model="form.name" placeholder="请输入手机号" />
+            <HdError name="account" />
 
             <FormInputComponent
               v-model="form.password"
@@ -34,14 +33,6 @@ const onSubmit = request(async () => {
           </div>
 
           <FormButtonComponent class="w-full mt-3 primary">登录</FormButtonComponent>
-
-          <div class="flex justify-center mt-3">
-            <wechat
-              theme="outline"
-              size="24"
-              fill="#fff"
-              class="fab fa-weixin bg-green-600 text-white rounded-full p-1 cursor-pointer" />
-          </div>
         </div>
         <Footer />
       </div>

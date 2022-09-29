@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import useMenu from './useMenu'
-import { RouteName } from '@/enum/RouteName'
-import { onMounted } from 'vue'
-import { ApplicationOne } from '@icon-park/vue-next'
+import { RouteEnum } from '@/enum/RouteEnum'
 const { routes, show, go } = useMenu()
 
 onMounted(() => {
@@ -16,13 +13,13 @@ onMounted(() => {
   <div class="admin-menu">
     <div class="menu" :class="{ hidden: !show }">
       <div class="logo cursor-pointer">
-        <application-one
+        <icon-application-one
           theme="outline"
           size="18"
           fill="#dcdcdc"
           class="mr-2"
-          @click="$router.push({ name: RouteName.HOME })" />
-        <span class="text-md cursor-pointer" @click="$router.push({ name: RouteName.ADMIN })">晚八点直播</span>
+          @click="$router.push({ name: RouteEnum.HOME })" />
+        <span class="text-md cursor-pointer" @click="$router.push({ name: RouteEnum.ADMIN })">晚八点直播</span>
       </div>
       <!-- 菜单 -->
       <div class="container">

@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { Plus } from '@element-plus/icons-vue'
-import useUpload from '@/composables/useUpload'
-const { uploadImage } = useUpload()
+import { uploadImage } from '@/apis/upload'
 
 const props = defineProps<{
   modelValue: string | null

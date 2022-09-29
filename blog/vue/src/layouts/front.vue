@@ -1,14 +1,64 @@
 <script setup lang="ts">
+import useCategory from '@/composables/useCategory'
+const { all, categories } = useCategory()
+const { all: getArticleList } = useArticle()
+await all()
 </script>
 
-<!-- 网站界面 -->
 <template>
   <main class="front">
-    <div class="logo w-[500px]"></div>
+    <div class="log cursor-pointer" @click="$router.push('/')">
+      <!-- <img src="/images/logo.jpeg" class="w-[1200px]" /> -->
+      <img src="/images/home.png" class="w-[32px]" />
+    </div>
+    <nav>
+      <!-- 渲染文章栏目 -->
+      <section>
+        <div
+          v-for="category of categories"
+          :key="category.id"
+          :class="{ active: +$route.params.cid === category.id }"
+          @click="$router.push({ name: 'category.index', params: { cid: category.id } })">
+          {{ category.title }}
+        </div>
+        <el-button type="primary" size="default">+新增栏目</el-button>
+      </section>
+      <!-- 按钮组 -->
+      <section>
+        <el-button type="primary" size="default" @click="$router.push({ name: 'article.create' })">发表文章</el-button>
+        <el-button 
+          type="success" 
+          size="default"
+          @click="$router.push('/login')">
+          管理员登录
+        </el-button>
+      </section>
+    </nav>
     <router-view />
   </main>
 </template>
 
 <style lang="scss" scoped>
-
+main.front {
+  @apply bg-gray-50 md:shadow-md md:mt-5 m-auto md:w-[1000px] p-5 md:rounded-md;
+  nav {
+    @apply flex md:flex-row flex-col md:justify-between md:items-center mt-3;
+    // 移动端适配
+    section {
+      @apply flex gap-2 items-center flex-wrap;
+      div {
+        @apply bg-slate-200 text-gray-900 py-2 px-3 cursor-pointer hover:shadow-lg duration-300 rounded-md;
+        &.active {
+          @apply bg-orange-600 text-white;
+        }
+      }
+      &:nth-of-type(2) {
+        @apply flex justify-between  mt-3 md:mt-0 ml-0;
+        button {
+          @apply flex-1;
+        }
+      }
+    }
+  }
+}
 </style>

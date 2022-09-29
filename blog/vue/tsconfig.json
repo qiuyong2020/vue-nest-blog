@@ -1,36 +1,31 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
+    "target": "esnext",
     "useDefineForClassFields": true,
-    "module": "ESNext",
-    "moduleResolution": "Node",
+    "module": "esnext",
+    "moduleResolution": "node",
     "strict": true,
     "jsx": "preserve",
     "sourceMap": true,
     "resolveJsonModule": true,
-    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
-    "lib": ["ESNext", "DOM"],
+    "lib": ["esnext", "dom"],
     "baseUrl": ".",
-    "skipLibCheck": true,
     "paths": {
       "@/*": ["./src/*"],
       "#/*": ["./types/*"]
     },
-    "types": ["element-plus/global", "echarts", "lodash"]
+    "types": ["element-plus/global", "echarts", "lodash", "web-bluetooth", "naive-ui/volar"]
   },
-  "exclude": ["node_modules", "dist"],
   "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
+    "vite.config.ts",
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.vue",
     "types/*.d.ts",
-    "types/**/*.d.ts",
+    "types/*.ts",
     "mock/**/*.ts"
   ],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "exclude": ["node_modules", "dist"]
 }

@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import userStore from '@/store/userStore'
-import HistoryLink from './admin/historyLink.vue'
 import MenuComponet from './admin/menu.vue'
 import Navbar from './admin/navbar.vue'
+import HistoryLink from './admin/historyLink.vue'
+import userStore from '@/store/userStore'
 
-const { getCurrentUser } = userStore()
-await getCurrentUser()
+await Promise.all([userStore().getUserInfo()])
 </script>
 
 <template>
@@ -18,9 +17,25 @@ await getCurrentUser()
       </div>
       <div class="m-3 relative overflow-y-auto">
         <router-view #default="{ Component, route }">
-          <component :is="Component" />
+          <Transition
+            appear
+            mode="out-in"
+            class="animate__animated"
+            :enter-active-class="route.meta.enterClass ?? ''"
+            :leave-active-class="route.meta.leaveClass ?? ''">
+            <component :is="Component" />
+          </Transition>
         </router-view>
       </div>
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.animate__fadeInRight {
+  animation-duration: 0.5s;
+}
+.animate__fadeOutLeft {
+  animation-duration: 0.3s;
+}
+</style>

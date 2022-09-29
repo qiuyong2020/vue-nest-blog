@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { OffScreen, FullScreenOne } from '@icon-park/vue-next'
-
 const isFullScreen = ref<boolean>(false)
 const fullScreen = () => {
   isFullScreen.value ? document.exitFullscreen() : document.documentElement.requestFullscreen()
@@ -15,7 +12,7 @@ document.addEventListener('fullscreenchange', (e) => {
 
 <template>
   <div class="flex items-center cursor-pointer">
-    <OffScreen theme="outline" size="18" @click="fullScreen" v-if="isFullScreen" />
-    <FullScreenOne theme="outline" size="18" @click="fullScreen" v-else />
+    <icon-off-screen theme="outline" size="18" @click="fullScreen" v-if="isFullScreen" />
+    <icon-full-screen-one theme="outline" size="18" @click="fullScreen" v-else />
   </div>
 </template>

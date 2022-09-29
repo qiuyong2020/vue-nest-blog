@@ -1,23 +1,17 @@
-//请求响应结构
-interface ApiData<T> {
-  code: number
-  message: string
-  status: 'success' | 'error'
+//请求响应结构（响应数据没有分页时）
+interface ResponseResult<T> {
   data: T
 }
 
-//分页请求响应结构
-interface ApiPage<T> {
+//分页请求响应结构（响应数据有分页时）
+interface ResponsePageResult<T> {
+  //文章列表
   data: T[]
-  links: { url?: string; label: string; active: boolean }
+  //元信息
   meta: {
     current_page: number
-    from: number
-    last_page: number
-    links: { first: string; last: string; prev?: any; next?: any }[]
-    path: string
-    per_page: number
-    to: number
+    page_row: number
     total: number
+    total_page: number
   }
 }
